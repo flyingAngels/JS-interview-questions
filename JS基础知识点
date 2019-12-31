@@ -1,0 +1,48 @@
+# JS基础知识点
+
+## 1.介绍js的基本数据类型(原始数据类型)
+
+     Undefined、Null、Boolean、Number、String、Symbol（es6新增）
+     
+## 2.类型判断用到哪些方法？
+   
+     ### typeof
+
+     typeof xxx得到的值有以下几种类型：undefined boolean number string object  function、symbol ，比较简单，不再一一演示了。
+     这里需要注意的有三点：
+
+     ①:typeof null结果是object ，实际这是typeof的一个bug，null是原始值，非引用类型
+     ②:typeof [1, 2]结果是object，结果中没有array这一项，引用类型除了function其他的全部都是object
+     ③:typeof Symbol() 用typeof获取symbol类型的值得到的是symbol，这是 ES6 新增的知识
+
+     ### instanceof
+
+     用于实例和构造函数的对应。例如判断一个变量是否是数组，使用typeof无法判断，但可以使用[1, 2] instanceof Array来判断。
+     因为，[1, 2]是数组，它的构造函数就是Array。同理：
+     
+     function Foo(name) {
+        this.name = name
+     }
+     var foo = new Foo('bar')
+     console.log(foo instanceof Foo) // true
+     
+### 3.JavaScript有几种类型的值？，你能画一下他们的内存图吗？
+
+     ![Image](https://uploader.shimo.im/f/F5b1O0wO9H4xp3cr.png!original)
+     
+     栈：原始数据类型（Undefined，Null，Boolean，Number、String） 
+     堆：引用数据类型（对象、数组和函数） 
+
+     两种类型的区别是：存储位置不同； 
+
+      ①:原始数据类型直接存储在栈(stack)中的简单数据段，占据空间小、大小固定，属于被频繁使用数据，所以放入栈中存储；  
+
+      ②:引用数据类型存储在堆(heap)中的对象,占据空间大、大小不固定,如果存储在栈中，将会影响程序运行的性能；引用数据类型在栈中存储了指针，
+        该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体 
+
+        在参数传递方式上，原始类型是按值传递，引用类型是按共享传递 
+
+        JS 中这种设计的原因是：按值传递的类型，复制一份存入栈内存，这类类型一般不占用太多内存，而且按值传递保证了其访问速度。
+        按共享传递的类型，是复制其引用，而不是整个复制其值（C 语言中的指针），保证过大的对象等不会因为不停复制内容而造成内存的浪费。 
+        
+        
